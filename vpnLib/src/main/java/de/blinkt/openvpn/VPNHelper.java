@@ -29,6 +29,7 @@ public class VPNHelper extends Activity {
     private static Intent profileIntent;
     private static String username;
     private static String password;
+    private static String privatePass;
     private static String name;
     private static List<String> bypassPackages;
 
@@ -55,11 +56,12 @@ public class VPNHelper extends Activity {
     }
 
 
-    public void startVPN(String config, String username, String password, String name, List<String> bypass) {
+    public void startVPN(String config, String username, String password, String priKeyPasswd, String name, List<String> bypass) {
         VPNHelper.config = config;
         VPNHelper.profileIntent = VpnService.prepare(activity);
         VPNHelper.username = username;
         VPNHelper.password = password;
+        VPNHelper.privatePass = priKeyPasswd;
         VPNHelper.name = name;
         VPNHelper.bypassPackages = bypass;
 
@@ -84,7 +86,7 @@ public class VPNHelper extends Activity {
 
     private void connect() {
         try {
-            OpenVpnApi.startVpn(activity, config,name, username, password, bypassPackages);
+            OpenVpnApi.startVpn(activity, config, name, username, password, privatePass,bypassPackages);
             vpnStart = true;
         } catch (RemoteException e) {
             e.printStackTrace();
