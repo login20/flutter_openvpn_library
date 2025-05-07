@@ -23,6 +23,7 @@ public class OpenVpnApi {
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
     public static void startVpn(Context context, String config, String name, String username, String password, String priKeyPasswd, List<String> bypassPackages) throws RemoteException {
         if (TextUtils.isEmpty(config)) throw new RemoteException("config is empty");
+
         startVpnInternal(context, config, name, username, password, priKeyPasswd, bypassPackages);
     }
 
@@ -32,6 +33,7 @@ public class OpenVpnApi {
             cp.parseConfig(new StringReader(config));
             VpnProfile vp = cp.convertProfile();// Analysis.ovpn
             vp.mName = name;
+            
             if (vp.checkProfile(context) != de.blinkt.openvpn.R.string.no_error_found) {
                 throw new RemoteException(context.getString(vp.checkProfile(context)));
             }
@@ -39,6 +41,7 @@ public class OpenVpnApi {
             vp.mUsername = username;
             vp.mPassword = password;
             vp.mKeyPassword = priKeyPasswd;
+            Log.d("[openvpn_flutter_lib]", "[startVpnInternal]vp.mKeyPassword" + vp.mKeyPassword);
             if(bypassPackages.size() > 0){
                 vp.mAllowAppVpnBypass = true;
                 vp.mAllowedAppsVpn = new HashSet<>(bypassPackages);

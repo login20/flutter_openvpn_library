@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Vector;
+import android.util.Log;
 
 import de.blinkt.openvpn.R;
 import de.blinkt.openvpn.VpnProfile;
@@ -133,6 +134,7 @@ public class VPNLaunchHelper {
     public static void startOpenVpn(VpnProfile startprofile, Context context) {
         Intent startVPN = startprofile.prepareStartService(context);
         if (startVPN != null) {
+            Log.d("[openvpn_flutter_lib]", "[startOpenVpn]Build.VERSION.SDK_INT-" + Build.VERSION.SDK_INT + ":Build.VERSION_CODES.O:"+Build.VERSION_CODES.O);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
                 //noinspection NewApi
                 context.startForegroundService(startVPN);

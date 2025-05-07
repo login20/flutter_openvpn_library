@@ -253,8 +253,7 @@ public class OpenVpnManagementThread implements Runnable, OpenVPNManagement {
             VpnStatus.logException("Failed to retrieve fd from socket (" + fd + ")", e);
         }
 
-        Log.d("Openvpn", "Failed to retrieve fd from socket: " + fd);
-
+        Log.d("[openvpn_flutter_lib]", "Failed to retrieve fd from socket: " + fd);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -365,7 +364,7 @@ public class OpenVpnManagementThread implements Runnable, OpenVPNManagement {
                  */
         // 2 log message
 
-        Log.d("OpenVPN", argument);
+        Log.d("[openvpn_flutter_lib]", argument);
 
         VpnStatus.LogLevel level;
         switch (args[1]) {
@@ -689,7 +688,7 @@ public class OpenVpnManagementThread implements Runnable, OpenVPNManagement {
 
         String pw = null;
         String username = null;
-
+        Log.d("[openvpn_flutter_lib]", "needed: " + needed);
         if (needed.equals("Private Key")) {
             pw = mProfile.getPasswordPrivateKey();
         } else if (needed.equals("Auth")) {

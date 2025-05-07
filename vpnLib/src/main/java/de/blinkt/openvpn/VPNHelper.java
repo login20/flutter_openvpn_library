@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.net.VpnService;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -64,8 +65,10 @@ public class VPNHelper extends Activity {
         VPNHelper.privatePass = priKeyPasswd;
         VPNHelper.name = name;
         VPNHelper.bypassPackages = bypass;
-
+        Log.d("[openvpn_flutter_lib]", "[startVPN]username:" + VPNHelper.username);
+        Log.d("[openvpn_flutter_lib]", "[startVPN]privatePass:" + VPNHelper.privatePass);
         if (profileIntent != null) {
+            Log.d("[openvpn_flutter_lib]", "[startVPN]call startActivityForResult");
             activity.startActivityForResult(VPNHelper.profileIntent, 1);
         }else{
             startVPN();
@@ -86,7 +89,8 @@ public class VPNHelper extends Activity {
 
     private void connect() {
         try {
-            OpenVpnApi.startVpn(activity, config, name, username, password, privatePass,bypassPackages);
+            Log.d("[openvpn_flutter_lib]", "[connect]privatePass:" + privatePass);
+            OpenVpnApi.startVpn(activity, config, name, username, password, privatePass, bypassPackages);
             vpnStart = true;
         } catch (RemoteException e) {
             e.printStackTrace();

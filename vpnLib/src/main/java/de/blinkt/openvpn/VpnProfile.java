@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 
 import de.blinkt.openvpn.core.*;
 import org.spongycastle.util.io.pem.PemObject;
@@ -765,10 +766,14 @@ public class VpnProfile implements Serializable, Cloneable {
 
     public Intent getStartServiceIntent(Context context) {
         String prefix = context.getPackageName();
-
+        
         Intent intent = new Intent(context, OpenVPNService.class);
         intent.putExtra(prefix + ".profileUUID", mUuid.toString());
         intent.putExtra(prefix + ".profileVersion", mVersion);
+
+        Log.d("[openvpn_flutter_lib]", "[getStartServiceIntent] OpenVPNService.class:" + OpenVPNService.class);
+        Log.d("[openvpn_flutter_lib]", "[getStartServiceIntent] UUID:" + mUuid.toString());
+        Log.d("[openvpn_flutter_lib]", "[getStartServiceIntent] mVersion:" + mVersion.toString());
         return intent;
     }
 
